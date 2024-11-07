@@ -7,10 +7,10 @@ class Node
       @value = value  
     end
     def remove_prev_node
-        @next_node = nil
+        @prev_node = nil
     end
     def remove_next_node
-        @prev_node = nil
+        @next_node = nil
     end
     def set_next_node(node)
         @next_node = node
@@ -21,6 +21,7 @@ class Node
 end
 
 class Linked_List
+    attr_reader :head, :tail
     def initialize
         @head = nil
         @tail = nil 
@@ -61,20 +62,20 @@ class Linked_List
     end
 
     def remove_tail
-        return false, {message: "linked list is empty."} if !@head
+        return false, {message: "linked list is empty."} if @head.nil?
         if @head == @tail 
             @head = nil
             @tail = nil
             return true
         end
-        new_tail = @head.prev_node
+        new_tail = @tail.prev_node
         new_tail.remove_next_node
         @tail = new_tail
         return true
     end
 
     def remove_head
-        return false, {message: "linked list is empty."} if !@head 
+        return false, {message: "linked list is empty."} if @head.nil? 
         if @head == @tail 
             @head = nil
             @tail = nil
@@ -94,16 +95,18 @@ class Linked_List
 
         # here we will only traverse in single direction
         current_node = @head
-        while current_node.next_node
-            if current_node.value === value
+        while current_node
+            if current_node.value == value
                 # if prev node doesnt exists means its the head therefore we call remove head func
-                if !current_node.prev_node
+                if current_node.prev_node.nil?
                     #remove head function
                     remove_head
+                    break
                 end
-                if !current_node.next_node
+                if current_node.next_node.nil?
                     #remove tail function
                     remove_tail
+                    break
                 end
                 prev_node = current_node.prev_node
                 next_node = current_node.next_node
@@ -111,6 +114,16 @@ class Linked_List
                 next_node.set_prev_node(prev_node)
                 break;
             end
+            current_node = current_node.next_node
+        end
+    end
+    def traverse
+        current_head = @head
+        num = 1
+        while current_head
+            puts "#{num} - #{current_head.value} #{ "head" if current_head === @head } #{"tail" if current_head === @tail}"
+            current_head = current_head.next_node
+            num += 1
         end
     end
 end
