@@ -136,6 +136,13 @@ end
             inOrder(root.right, &block)
         end
     end
+    def preOrder(root = @root, &block)
+        unless root.nil?
+            block_given? ? yield(root.value) : puts(root.value)
+            preOrder(root.left, &block)
+            preOrder(root.right, &block)
+        end
+    end
     private
     def contains_value(root, value, get_node = false)
         if root.nil?
