@@ -129,6 +129,8 @@ end
     # without &block we wont be able to pass the do this end block to other recursive calls and therefore,
     # it will be inconsistent and will only occur once but if we pass block to every recursive call we 
     # can use the same block in every recursive call that we make.s
+
+
     def inOrder(root = @root, &block)
         unless root.nil?
             inOrder(root.left, &block)
@@ -141,6 +143,14 @@ end
             block_given? ? yield(root.value) : puts(root.value)
             preOrder(root.left, &block)
             preOrder(root.right, &block)
+        end
+    end
+
+    def postOrder(root = @root, &block)
+        unless root.nil?
+            postOrder(root.left, &block)
+            postOrder(root.right, &block)
+            block_given? ? yield(root.value) : puts(root.value)
         end
     end
     private

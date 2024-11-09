@@ -70,16 +70,23 @@ RSpec.describe Tree do
         tree.insert(1)
         describe "#inOrder" do
             values = []
+            tree.inOrder{|value| values.push(value) }
+            it "Checks if in Order prints values in an order" do
+                expect(values).to eq([1,4,10,50,55,300])
+            end
+        end
+        describe "#preOrder" do
+            values = []
             tree.preOrder{|value| values.push(value) }
             it "Checks if in Order prints values in an order" do
                 expect(values).to eq([50,10,4,1,55,300])
             end
         end
-        describe "#inOrder" do
+        describe "#postOrder" do
             values = []
-            tree.inOrder{|value| values.push(value) }
+            tree.postOrder{|value| values.push(value) }
             it "Checks if in Order prints values in an order" do
-                expect(values).to eq([1,4,10,50,55,300])
+                expect(values).to eq([1,4,10,300, 55, 50])
             end
         end
         describe "#find_min & #find_max" do
