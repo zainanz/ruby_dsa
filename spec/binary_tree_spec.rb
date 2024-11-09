@@ -60,4 +60,22 @@ RSpec.describe Tree do
             end
         end
     end
+    describe "#find_min & #find_max" do
+        tree = Tree.new
+        tree.insert(50)
+        tree.insert(10)
+        tree.insert(55)
+        tree.insert(4)
+        tree.insert(300)
+        tree.insert(1)
+        it "finds the mimum value" do 
+            expect(tree.find_min).to eq(1)
+        end
+        it "finds the max value" do
+            expect(tree.find_max).to eq(300)
+            tree.insert(500)
+            expect(tree.find_max).to eq(500)
+
+        end
+    end
 end

@@ -62,6 +62,14 @@ class Tree
     def find_node(value)
         contains_value(@root, value, true)
     end
+    def find_min(root = @root)
+        return root.value if(root.left.nil?)
+        find_min(root.left)
+    end
+    def find_max(root = @root)
+    return root.value if(root.right.nil?)
+    find_max(root.right)
+end
     private
     def contains_value(root, value, get_node = false)
         if root.nil?
@@ -76,5 +84,6 @@ class Tree
             contains_value(root.left, value, get_node)
         end
     end
+
 
 end
