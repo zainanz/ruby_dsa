@@ -42,5 +42,13 @@ RSpec.describe Tree do
             end
             expect(current_node.value).to eq(10)
         end
+        describe "#contains" do
+            it "checks if contains work as expected with nodes inserted using for loop" do
+                expect(new_tree.contains(1)).to eq(true)
+                expect(new_tree.contains(110)).to eq(false)
+                expect(new_tree.contains(3)).to eq(true)
+                expect(new_tree.contains(4)).to eq(true)
+            end
+        end
     end
 end

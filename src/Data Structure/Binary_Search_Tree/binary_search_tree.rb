@@ -54,4 +54,23 @@ class Tree
             end
         end
     end
+
+    def contains(value)
+        contains_value(@root, value)
+    end
+    private
+    def contains_value(root, value)
+        if root.nil?
+            return false
+        end
+        if root.value === value
+            return true
+        end
+        if value > root.value
+            contains_value(root.right, value)
+        else
+            contains_value(root.left, value)
+        end
+    end
+
 end
