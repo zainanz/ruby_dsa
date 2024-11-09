@@ -60,7 +60,7 @@ RSpec.describe Tree do
             end
         end
     end
-    describe "#find_min & #find_max" do
+    describe "Custom Tree test:" do
         tree = Tree.new
         tree.insert(50)
         tree.insert(10)
@@ -68,14 +68,16 @@ RSpec.describe Tree do
         tree.insert(4)
         tree.insert(300)
         tree.insert(1)
-        it "finds the mimum value" do 
-            expect(tree.find_min).to eq(1)
-        end
-        it "finds the max value" do
-            expect(tree.find_max).to eq(300)
-            tree.insert(500)
-            expect(tree.find_max).to eq(500)
+        describe "#find_min & #find_max" do
+            it "finds the mimum value" do 
+                expect(tree.find_min).to eq(1)
+            end
+            it "finds the max value" do
+                expect(tree.find_max).to eq(300)
+                tree.insert(500)
+                expect(tree.find_max).to eq(500)
 
+            end
         end
         describe "#find_parent" do
             it "checks if the parent of 300 is 55" do
@@ -87,6 +89,19 @@ RSpec.describe Tree do
             it "checks if the parent of 1 is nil" do
                 expect(tree.find_parent(1).value).to eq(4)
             end
+        end
+        describe "#remove" do
+            it "removes 500 making 300 the next max" do
+                tree.delete(500)
+                expect(tree.find_max).to eq(300)
+            end
+    
+            it "removes 50 making 55 the new root" do
+                tree.delete(50)
+                expect(tree.root.value).to eq(55)
+                expect(tree.root.right.value).to eq(300)
+            end
+
         end
     end
 end

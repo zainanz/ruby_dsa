@@ -53,6 +53,42 @@ class Tree
         end
     end
 
+    def delete(value)
+        parent = find_parent(value)
+        nodeToRemove = find_node(value)
+        return false if nodeToRemove.nil?
+        if nodeToRemove.left.nil? && nodeToRemove.right.nil?
+            parent.value > nodeToRemove.value ? parent.set_left(nil) : parent.set_right(nil)
+            # base care for recursion of removal of the parent
+            return
+        end
+        if nodeToRemove.left && nodeToRemove.right
+            nextNode =  nodeToRemove.right
+            while nextNode.left
+                nextNode = nextNode.left
+            end
+            if nextNode != nodeToRemove.right
+                delete(nextNode.value)
+                nodeToRemove.value = nextNode.value
+            else
+                nodeToRemove.set_value(nextNode.value)
+                nodeToRemove.set_right(nodeToRemove.right.right)
+            end
+            # dont go any futher 
+            return 
+        end
+        # if either the left or right child exists then
+        childNode = nodeToRemove.left || nodeToRemove.right
+        if parent
+            childNode.value == nodeToRemove.left.value ?   parent.set_left(childNode) : parent.set_right(childNode)
+        else
+            nodeToRemove.set_value(childNode.value)
+            nodeToRemove.set_left(childNode.left)
+            nodeToRemove.set_right(childNode.right)
+        end 
+
+    end
+
     def insert_node(root, value)
         if value > root.value
             # then it goes on the right node
