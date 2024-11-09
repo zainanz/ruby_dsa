@@ -38,6 +38,21 @@ class Tree
         end
     end
 
+    def find_parent(value, root = @root)
+        if value === root.value
+            return nil
+        end
+        if value < root.value
+            return nil if root.left.nil?
+            return root if root.left.value === value
+            find_parent(value, root.left)
+        else
+            return nil if root.right.nil?
+            return root if root.right.value === value
+            find_parent(value, root.right)
+        end
+    end
+
     def insert_node(root, value)
         if value > root.value
             # then it goes on the right node

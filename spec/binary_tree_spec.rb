@@ -77,5 +77,16 @@ RSpec.describe Tree do
             expect(tree.find_max).to eq(500)
 
         end
+        describe "#find_parent" do
+            it "checks if the parent of 300 is 55" do
+                expect(tree.find_parent(300).value).to eq(55)
+            end
+            it "checks if the parent of 500 is 300" do
+                expect(tree.find_parent(500).value).to eq(300)
+            end
+            it "checks if the parent of 1 is nil" do
+                expect(tree.find_parent(1).value).to eq(4)
+            end
+        end
     end
 end
