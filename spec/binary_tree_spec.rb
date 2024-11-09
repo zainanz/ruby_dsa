@@ -60,7 +60,7 @@ RSpec.describe Tree do
             end
         end
     end
-    describe "Custom Tree test:" do
+    describe "Custom Tree test:" do            
         tree = Tree.new
         tree.insert(50)
         tree.insert(10)
@@ -68,6 +68,13 @@ RSpec.describe Tree do
         tree.insert(4)
         tree.insert(300)
         tree.insert(1)
+        describe "#inOrder" do
+            values = []
+            tree.inOrder{|value| values.push(value) }
+            it "Checks if in Order prints values in an order" do
+                expect(values).to eq([1,4,10,50,55,300])
+            end
+        end
         describe "#find_min & #find_max" do
             it "finds the mimum value" do 
                 expect(tree.find_min).to eq(1)

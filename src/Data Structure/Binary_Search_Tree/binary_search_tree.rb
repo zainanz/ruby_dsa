@@ -121,6 +121,21 @@ class Tree
     return root.value if(root.right.nil?)
     find_max(root.right)
 end
+
+    # Traversal
+
+    # Since it's recursion.. yield block might not be passing to the recusive calls and therefore we explicilty 
+    # pass the block if it exists..
+    # without &block we wont be able to pass the do this end block to other recursive calls and therefore,
+    # it will be inconsistent and will only occur once but if we pass block to every recursive call we 
+    # can use the same block in every recursive call that we make.s
+    def inOrder(root = @root, &block)
+        unless root.nil?
+            inOrder(root.left, &block)
+            block_given? ? yield(root.value) : puts(root.value)
+            inOrder(root.right, &block)
+        end
+    end
     private
     def contains_value(root, value, get_node = false)
         if root.nil?
@@ -135,6 +150,5 @@ end
             contains_value(root.left, value, get_node)
         end
     end
-
 
 end
