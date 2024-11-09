@@ -58,18 +58,22 @@ class Tree
     def contains(value)
         contains_value(@root, value)
     end
+
+    def find_node(value)
+        contains_value(@root, value, true)
+    end
     private
-    def contains_value(root, value)
+    def contains_value(root, value, get_node = false)
         if root.nil?
             return false
         end
         if root.value === value
-            return true
+            return get_node ? root : true
         end
         if value > root.value
-            contains_value(root.right, value)
+            contains_value(root.right, value, get_node)
         else
-            contains_value(root.left, value)
+            contains_value(root.left, value, get_node)
         end
     end
 

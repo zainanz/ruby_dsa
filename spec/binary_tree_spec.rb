@@ -30,7 +30,7 @@ RSpec.describe Tree do
         end
         new_tree = Tree.new
         i = 1
-        10.times do
+        100.times do
             new_tree.insert(i)
             i+=1
         end
@@ -40,7 +40,7 @@ RSpec.describe Tree do
             while current_node.right
                 current_node = current_node.right
             end
-            expect(current_node.value).to eq(10)
+            expect(current_node.value).to eq(100)
         end
         describe "#contains" do
             it "checks if contains work as expected with nodes inserted using for loop" do
@@ -48,6 +48,15 @@ RSpec.describe Tree do
                 expect(new_tree.contains(110)).to eq(false)
                 expect(new_tree.contains(3)).to eq(true)
                 expect(new_tree.contains(4)).to eq(true)
+            end
+        end
+        describe "#find_node" do
+            it "test find node on the tree generated using for loop" do
+                expect(new_tree.find_node(100).class).to eq(Node)
+                expect(new_tree.find_node(100).value).to eq(100)
+                expect(new_tree.find_node(110)).to eq(false)
+                expect(new_tree.find_node(3).class).to eq(Node)
+                expect(new_tree.find_node(3).value).to eq(3)
             end
         end
     end
